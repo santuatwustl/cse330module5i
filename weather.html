@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Weather</title>
+	<link rel="stylesheet" type="text/css" href="weather.css">
+</head>
+<body>
+	<div class="weather" id="weatherWidget">
+	<div class="weather-loc"></div>
+	<div class="weather-humidity"></div>
+	<div class="weather-temp"></div>
+	<img class="weather-tomorrow" />
+	<img class="weather-dayaftertomorrow" />
+
+	<script>
+		document.addEventListener("DOMContentLoaded", fetchWeather, false);
+		document.getElementsByClassName("weather-loc")[0].textContent;
+		
+		function setUpWidget(weatherData){
+			document.getElementsByClassName("weather-loc")[0].textContent = weatherData.location.city + " "
+			           													  + weatherData.location.state;
+			document.getElementsByClassName("weather-temp")[0].textContent = weatherData.current.temp;
+			document.getElementsByClassName("weather-humidity")[0].textContent = weatherData.atmosphere.humidity;
+
+		}
+
+
+		function fetchWeather(){
+			const pathToPhpFile = 'https://classes.engineering.wustl.edu/cse330/content/weather_json.php';
+			fetch(pathToPhpFile)
+	  			.then(function(response){
+	  				return response.json();
+	  			})
+	  			.then(function(data){
+	  				setUpWidget(data);
+	  			})
+	  			.catch(error => console.error('Error:',error))
+		}
+	</script>
+</div>
+</body>
+</html>

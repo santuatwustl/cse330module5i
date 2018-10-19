@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>JS Calculator</title>
+</head>
+<body>
+	Operand 1: <input type="text" id="firstOperand"></br>
+	<div>
+		<input type= "radio" name= "option" value = "+" id = "add" /> + </br>
+	    <input type= "radio" name= "option" value = "-" id = "sub" /> - </br>
+	    <input type= "radio" name= "option" value = "*" id = "mul" /> * </br>
+	    <input type= "radio" name= "option" value = "/" id = "div" /> / </br>
+	</div>
+	Operand 2: <input type="text" id="secondOperand"></br>
+	<div id="result"></div>
+
+	
+	<script>
+		let operand1;
+		let operand2;
+		let operation;
+		let result = 0;
+		function doCalculation(){
+			if (operand1 != null && operand2 != null) {
+				switch(operation) {
+					case "+":
+						result = operand1 + operand2;
+						break;
+					case "-":
+						result = operand1 - operand2;
+						break;
+					case "*":
+						result = operand1 * operand2;
+						break;
+					case "/":
+						if(operand2 != 0) {
+							result = operand1 / operand2;
+						} else {
+							alert("operand 2 can not be 0");
+						}
+						break;
+					default:
+						result = 0;
+				}
+				document.getElementById("result").textContent = result;
+			} 
+			if(!result){document.getElementById("result").textContent = 0;}
+		}
+		function updateOperands(){
+			let input1 = document.getElementById("firstOperand").value;
+			if(!isNaN(input1)){
+				operand1 = parseFloat(input1);
+			} else {
+				alert("please type in a number");
+			}
+
+			let input2 = document.getElementById("secondOperand").value;
+			if (!isNaN(input2)){
+				operand2 = parseFloat(input2);
+			} else {
+				alert("please type in a number");
+			}
+			doCalculation();
+		}
+		document.getElementById("firstOperand").addEventListener("keyup", updateOperands, false);
+		document.getElementById("secondOperand").addEventListener("keyup", updateOperands, false);
+		document.getElementById("add").addEventListener("click", function(){operation = "+"; doCalculation();}, false);
+		document.getElementById("sub").addEventListener("click", function(){operation = "-"; doCalculation();}, false);
+		document.getElementById("mul").addEventListener("click", function(){operation = "*"; doCalculation();}, false);
+		document.getElementById("div").addEventListener("click", function(){operation = "/"; doCalculation();}, false);
+
+
+
+
+	
+	</script>
+</body>
+</html>
